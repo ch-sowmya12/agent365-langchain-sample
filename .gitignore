@@ -1,0 +1,28 @@
+# TeamsFx files
+env/.env.*.user
+env/.env.local
+env/.env.sandbox
+.localConfigs
+.localConfigs.playground
+.notification.localstore.json
+.notification.playgroundstore.json
+appPackage/build
+
+# Agent 365 CLI
+a365.config.json
+a365.generated.config.json
+
+# dependencies
+node_modules/
+
+# misc
+.env
+.deployment
+.DS_Store
+package-lock.json
+
+# build
+dist/
+
+# Dev tool directories
+/devTools/
