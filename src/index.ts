@@ -56,8 +56,22 @@ server.post('/api/messages', (req: Request, res: Response) => {
   const adapter = agentApplication.adapter as CloudAdapter;
   adapter.process(req, res, async (context) => {
     await agentApplication.run(context)
-  })
+  }).catch((err: unknown) => {
+    console.error('Error processing activity:', err);
+    if (!res.headersSent) {
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 })
+
+// Prevent unhandled rejections from crashing the process
+process.on('unhandledRejection', (reason) => {
+  console.error('Unhandled rejection:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err);
+});
 
 const port = Number(process.env.PORT) || 3978
 const host = isProduction ? '0.0.0.0' : '127.0.0.1';
